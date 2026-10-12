@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=full_series
 #SBATCH --qos=nf
-#SBATCH --time=0-1
+#SBATCH --time=0-4
 
 MANDTG=/home/fasg/bin/mandtg
 DDIR=/scratch/smos/Observations/MFB

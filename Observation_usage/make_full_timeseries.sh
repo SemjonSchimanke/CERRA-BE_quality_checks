@@ -1,17 +1,28 @@
 #!/bin/bash -e
+#SBATCH --job-name=full_series
+#SBATCH --qos=nf
+#SBATCH --time=0-1
 
 MANDTG=/home/fasg/bin/mandtg
 DDIR=/scratch/smos/Observations/MFB
 
 OUTDIR=$DDIR/full_time_series
+if [[ -d $OUTDIR ]];then
+    # Remove data if already existing
+    rm $OUTDIR/*dat
+else
+    mkdir -p $OUTDIR
+fi
+
 HHLIST="00 03 06 09 12 15 18 21"
 
 YMBEG=196101
-YMEND=196512
+YMEND=200712
 
 
 YM=$YMBEG
 while (( "$YM" <= "$YMEND" ));do
+    echo "Working on $YM"
 
     if [[ -d $DDIR/$YM ]];then
 	# If data exist
