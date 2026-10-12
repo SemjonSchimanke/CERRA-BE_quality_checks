@@ -1,6 +1,7 @@
 #!/bin/ksh
 #SBATCH --job-name=MARS_obs
 #SBATCH --qos=nf
+#SBATCH --time=1-0
 
 
 # Functions
@@ -269,10 +270,10 @@ module load ecmwf-toolbox
 MANDTG=/home/fasg/bin/mandtg
 WDIR=/scratch/smos/Observations/MFB
 
-start_year=1990
+start_year=2020
 start_month=1
 
-end_year=1991
+end_year=2025
 end_month=12
 
 YMLIST=$(create_YMLIST $start_year $start_month $end_year $end_month)
@@ -283,7 +284,7 @@ cd $WDIR
 
 for YM in $YMLIST;do
     echo "Working on $YM"
-
+    
     YEAR=$(echo $YM | cut -c1-4)
     MONTH=$(echo $YM | cut -c5-6)
 
@@ -316,17 +317,17 @@ for YM in $YMLIST;do
 	echo "Data fetched."
     fi
 
-     echo "Working on stat_surf $YM"
-     stat_surf $YM
-     echo "Working on stat_temp $YM"
-     stat_temp $YM
-     echo "Working on stat_airep $YM"
-     stat_airep $YM
-
-     /bin/rm conv_CERRA_${YM}.mfb
-     /bin/rm getmarsdone.dat
-     /bin/rm mars_request.dat
-     /bin/rm out.dat
-
+    echo "Working on stat_surf $YM"
+    stat_surf $YM
+    echo "Working on stat_temp $YM"
+    stat_temp $YM
+    echo "Working on stat_airep $YM"
+    stat_airep $YM
+    
+    /bin/rm conv_CERRA_${YM}.mfb
+    /bin/rm getmarsdone.dat
+    /bin/rm mars_request.dat
+    /bin/rm out.dat
+    
 done
 
