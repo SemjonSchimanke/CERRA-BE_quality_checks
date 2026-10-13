@@ -1,7 +1,7 @@
 #!/bin/bash
-#SBATCH --job-name=full_series
+#SBATCH --job-name=monthly
 #SBATCH --qos=nf
-#SBATCH --time=0-4
+#SBATCH --time=0-1
 
 MANDTG=/home/fasg/bin/mandtg
 DDIR=/scratch/smos/Observations/MFB
@@ -9,13 +9,14 @@ INDIR=$DDIR/full_time_series
 OUTDIR=$DDIR/full_time_series_30davg
 if [[ -d $OUTDIR ]];then
     # Remove data if already existing
-    rm $OUTDIR/*dat
+    # rm $OUTDIR/*dat
+    echo "Not this time."
 else
     mkdir -p $OUTDIR
 fi
 
-YMBEG=196101
-YMEND=196512
+YMBEG=202401
+YMEND=202512
 
 cd $INDIR
 INLIST=$(ls -1 *.dat)

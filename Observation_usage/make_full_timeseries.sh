@@ -1,7 +1,7 @@
 #!/bin/bash -e
 #SBATCH --job-name=full_series
 #SBATCH --qos=nf
-#SBATCH --time=0-1
+#SBATCH --time=0-5
 
 MANDTG=/home/fasg/bin/mandtg
 DDIR=/scratch/smos/Observations/MFB
@@ -9,15 +9,17 @@ DDIR=/scratch/smos/Observations/MFB
 OUTDIR=$DDIR/full_time_series
 if [[ -d $OUTDIR ]];then
     # Remove data if already existing
-    rm $OUTDIR/*dat
+    #    rm $OUTDIR/*dat
+    # OR extend it
+    echo "Extend data series"
 else
     mkdir -p $OUTDIR
 fi
 
 HHLIST="00 03 06 09 12 15 18 21"
 
-YMBEG=196101
-YMEND=200712
+YMBEG=202501
+YMEND=202512
 
 
 YM=$YMBEG

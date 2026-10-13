@@ -19,7 +19,7 @@ import pandas as pd
 DOMAIN = "CERRA"
 LEVELS = [0, 1500, 2500, 4000, 6500, 8500, 12500, 17500,
           22500, 27500, 35000, 45000, 60000, 80000, 92500, 200000]
-START_LEVELS = (1, 6, 11)  # 1-based indices, matching the shell script
+START_LEVELS = (1, 6, 11)  # 1-based indices
 VARIABLES = {
     2: ("Temperature", "K"),
     3: ("u-wind", "m/s"),
@@ -124,6 +124,9 @@ def level_info(index_1based: int) -> tuple[int, int, str, str]:
 def plot_profile_family(family: str, ddir: Path, start_month: str,
                         end_month: str, outdir: Path) -> None:
     for varno, (var_label, unit) in VARIABLES.items():
+        if varno == 7 and family == "airep":
+            # These statistics are not available. See make_full_timeseries.sh
+            continue
         for first_level in START_LEVELS:
             last_level = first_level + 4
             departure_panels = []
@@ -132,8 +135,8 @@ def plot_profile_family(family: str, ddir: Path, start_month: str,
                 p1, p2, p1_label, p2_label = level_info(level_index)
                 title = f"{var_label}. {p1_label} - {p2_label} hPa"
                 datafile = ddir / f"{DOMAIN}_{family}_{varno}_{p1}_{p2}_30davg.dat"
-                departure_panels.append((datafile, f"CERRA {DOMAIN} {family.upper()} {title}", unit, True))
-                nobs_panels.append((datafile, f"CERRA {DOMAIN} {family.upper()} {title} Nobs", "Nobs", False))
+                departure_panels.append((datafile, f"{DOMAIN} {family.upper()} {title}", unit, True))
+                nobs_panels.append((datafile, f"{DOMAIN} {family.upper()} {title} Nobs", "Nobs", False))
 
             output1 = outdir / f"{family}_{DOMAIN}_{varno}_{start_month}_{end_month}_{first_level}_fgdep_30davg.png"
             output2 = outdir / f"{family}_{DOMAIN}_{varno}_{start_month}_{end_month}_{first_level}_nobs_30davg.png"
