@@ -270,7 +270,7 @@ module load ecmwf-toolbox
 MANDTG=/home/fasg/bin/mandtg
 WDIR=/scratch/smos/Observations/MFB
 
-start_year=2020
+start_year=1960
 start_month=1
 
 end_year=2025
