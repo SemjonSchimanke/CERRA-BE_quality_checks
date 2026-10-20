@@ -1,0 +1,11 @@
+RETRIEVE,
+    ORIGIN     = se-al-ec,
+    CLASS      = rr,
+    EXPVER     = prod,
+    STREAM     = oper,
+    TYPE       = mfb,
+    OBSGROUP   = CONV,
+    DATE       = 19790103,
+    TIME       = 06,
+    TARGET     = "./conv_CERRA_1979010306.ofb"
+    
