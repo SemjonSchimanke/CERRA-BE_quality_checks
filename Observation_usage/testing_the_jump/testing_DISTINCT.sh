@@ -38,8 +38,8 @@ echo " observations for the same time step."
 echo -e "\n ==> It seems that DISTINCT works for a single time step.\n\n"
 
 echo "Testing for one day (8 time steps)."
-odc sql -q "SELECT DISTINCT 
-    	andate, antime, lat@hdr, lon@hdr WHERE 
+odc sql -q "SELECT DISTINCT *
+    	WHERE 
     	varno@body=58 AND obstype@hdr=1 AND 
        (codetype@hdr=11 OR codetype@hdr=14 OR codetype@hdr=170) AND 
        datum_status@surfbody_feedback=1" \
