@@ -232,7 +232,7 @@ RETRIEVE,
     OBSGROUP   = CONV,
     DATE       = ${YMDLIST},
     TIME       = 00/03/06/09/12/15/18/21,
-    TARGET     = "/ec/res4/scratch/smos/Observations/MFB/${YM}/conv_CERRA_${YM}.mfb"
+    TARGET     = "${WDIR}/${YM}/conv_CERRA_${YM}.mfb"
 EOF
 
 }
@@ -270,10 +270,10 @@ module load ecmwf-toolbox
 MANDTG=/home/fasg/bin/mandtg
 WDIR=/scratch/smos/Observations/MFB
 
-start_year=1960
-start_month=1
+start_year=1961
+start_month=01
 
-end_year=2025
+end_year=1969
 end_month=12
 
 YMLIST=$(create_YMLIST $start_year $start_month $end_year $end_month)
@@ -316,6 +316,14 @@ for YM in $YMLIST;do
         echo "yes" > getmarsdone.dat
 	echo "Data fetched."
     fi
+
+    # Removing dublicates                                                                 
+    echo "Removing dublicates"
+    odc sql -q "SELECT DISTINCT *" \
+        -i conv_CERRA_${YM}.mfb -o conv_CERRA_${YM}_DISTINCT.mfb -f odb
+    /bin/rm conv_CERRA_${YM}_before_DISTINCT.mfb
+    mv conv_CERRA_${YM}_DISTINCT.mfb conv_CERRA_${YM}.mfb
+
 
     echo "Working on stat_surf $YM"
     stat_surf $YM
