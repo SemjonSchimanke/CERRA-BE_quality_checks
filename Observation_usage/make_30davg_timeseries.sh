@@ -15,7 +15,7 @@ else
     mkdir -p $OUTDIR
 fi
 
-YMBEG=196009
+YMBEG=196101
 YMEND=202512
 
 cd $INDIR
