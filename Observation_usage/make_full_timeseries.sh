@@ -9,16 +9,16 @@ DDIR=/scratch/smos/Observations/MFB
 OUTDIR=$DDIR/full_time_series
 if [[ -d $OUTDIR ]];then
     # Remove data if already existing
-    #    rm $OUTDIR/*dat
+    rm $OUTDIR/*dat
     # OR extend it
-    echo "Extend data series"
+#    echo "Extend data series"
 else
     mkdir -p $OUTDIR
 fi
 
 HHLIST="00 03 06 09 12 15 18 21"
 
-YMBEG=202501
+YMBEG=196101
 YMEND=202512
 
 
@@ -29,11 +29,11 @@ while (( "$YM" <= "$YMEND" ));do
     if [[ -d $DDIR/$YM ]];then
 	# If data exist
 
-	cat $DDIR/$YM/CERRA_landsynop_z_${YM}.dat >> $OUTDIR/CERRA_landsynop_z.dat
-	cat $DDIR/$YM/CERRA_landsynop_t2m_${YM}.dat >> $OUTDIR/CERRA_landsynop_t2m.dat
+	cat $DDIR/$YM/CERRA_landsynop_z_${YM}.dat    >> $OUTDIR/CERRA_landsynop_z.dat
+	cat $DDIR/$YM/CERRA_landsynop_t2m_${YM}.dat  >> $OUTDIR/CERRA_landsynop_t2m.dat
 	cat $DDIR/$YM/CERRA_landsynop_rh2m_${YM}.dat >> $OUTDIR/CERRA_landsynop_rh2m.dat
-	cat $DDIR/$YM/CERRA_dribu_z_${YM}.dat     >> $OUTDIR/CERRA_dribu_z.dat
-	cat $DDIR/$YM/CERRA_ship_z_${YM}.dat      >> $OUTDIR/CERRA_ship_z.dat
+	cat $DDIR/$YM/CERRA_dribu_z_${YM}.dat        >> $OUTDIR/CERRA_dribu_z.dat
+	cat $DDIR/$YM/CERRA_ship_z_${YM}.dat         >> $OUTDIR/CERRA_ship_z.dat
 
 	for varno in  2 3 7;do
 	    

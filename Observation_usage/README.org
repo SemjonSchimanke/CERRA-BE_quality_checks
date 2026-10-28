@@ -1,6 +1,13 @@
+* Order of the scripts
 Run the scripts in this order:
 
 1. extrMARS_odb2_CERRA_conv_s1.ksh
 2. make_full_timeseries.sh
 3. make_30davg_timeseries.sh
 4. Plot_conv_30davg.py
+
+* Plotting
+python3 Plot_conv_30davg.py 196101 202312
+
+
+

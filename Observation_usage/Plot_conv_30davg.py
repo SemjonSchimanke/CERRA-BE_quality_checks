@@ -152,7 +152,7 @@ def main() -> None:
     parser.add_argument("--data-dir", type=Path,
                         default=Path("/ec/res4/scratch/smos/Observations/MFB/full_time_series_30davg"),
                         help="Directory containing the .dat statistics files")
-    parser.add_argument("--output-dir", type=Path, default=Path("/home/smos/Figures/Obs_usage"),
+    parser.add_argument("--output-dir", type=Path, default=Path("/ec/res4/scratch/smos/Figures/Obs_usage/"),
                         help="Directory for generated PNG files")
     args = parser.parse_args()
     start_month = month_bounds(args.date_start)

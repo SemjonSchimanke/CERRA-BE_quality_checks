@@ -3,18 +3,22 @@ MANDTG=/home/fasg/bin/mandtg
 DDIR=/scratch/smos/Observations/MFB
 cd $DDIR
 
-YMBEG=196101
-YMEND=202512
+ls -l ??????/CERRA_landsynop_t2m_??????.dat > tmp_list.txt
 
-YM=$YMBEG
-while (( "$YM" <= "$YMEND" ));do
-    if [[ ! -f ${YM}/CERRA_landsynop_t2m_${YM}.dat ]]; then
-	echo "    Missing:  $YM"
-    fi
-    YM=$($MANDTG $YM"2800" + 120 | cut -c1-6)
+YBEG=1961
+YEND=2025
+
+YYYY=$YBEG
+while (( "$YYYY" <= "$YEND" ));do
+    for MM in `seq -w 1 12`; do
+	if ! grep -q "${YYYY}${MM}" tmp_list.txt; then
+	    echo "    Missing:  $YYYY$MM"
+	fi
+    done
+    YYYY=$((YYYY + 1))
 done
 
-
+rm tmp_list.txt
 
 
 

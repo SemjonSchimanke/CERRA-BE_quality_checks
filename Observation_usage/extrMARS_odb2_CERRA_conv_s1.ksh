@@ -2,6 +2,7 @@
 #SBATCH --job-name=MARS_obs
 #SBATCH --qos=nf
 #SBATCH --time=1-0
+#SBATCH --mem=32G
 
 
 # Functions
@@ -270,11 +271,11 @@ module load ecmwf-toolbox
 MANDTG=/home/fasg/bin/mandtg
 WDIR=/scratch/smos/Observations/MFB
 
-start_year=1961
-start_month=01
+start_year=2016
+start_month=08
 
-end_year=1969
-end_month=12
+end_year=2016
+end_month=08
 
 YMLIST=$(create_YMLIST $start_year $start_month $end_year $end_month)
 
@@ -321,7 +322,6 @@ for YM in $YMLIST;do
     echo "Removing dublicates"
     odc sql -q "SELECT DISTINCT *" \
         -i conv_CERRA_${YM}.mfb -o conv_CERRA_${YM}_DISTINCT.mfb -f odb
-    /bin/rm conv_CERRA_${YM}_before_DISTINCT.mfb
     mv conv_CERRA_${YM}_DISTINCT.mfb conv_CERRA_${YM}.mfb
 
 
