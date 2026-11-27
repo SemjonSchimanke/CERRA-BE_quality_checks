@@ -1,3 +1,4 @@
+import os
 import cdsapi
 
 # --------------------------------------------------
@@ -16,7 +17,7 @@ variables = [
 
 months = [f"{m:02d}" for m in range(1, 13)]
 
-area = [90, -60, -20, 60]  # N, W, S, E
+area = [80, -60, 20, 75]  # N, W, S, E
 
 # --------------------------------------------------
 # CDS client
@@ -36,7 +37,11 @@ for decade in range((first_year // 10) * 10,
 
     years = [str(y) for y in range(start, end + 1)]
 
-    target = f"/ec/res4/scratch/smos/Long-term/ERA5/ERA5_monthly_{start}-{end}.grib"
+    target = f"/ec/res4/scratch/smos/Long-term/ERA5/ERA5_monthly_{start}-{end}.grb"
+    # Check if file already exists
+    if os.path.isfile(target) and os.path.getsize(target) > 1000000:
+        print(f"Already exists, skipping: {target}")
+        continue
 
     print("================================================")
     print(f"Downloading ERA5: {start}-{end}")
